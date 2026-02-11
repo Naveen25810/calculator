@@ -1,0 +1,160 @@
+
+    <main role="main" class="container">
+      <div class="row">       
+        <div class="col-md-8 blog-main">
+          <h3 class="pb-3 mb-4 font-italic border-bottom">
+            CTC - In hand Salary calculator
+          </h3>
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">CTC Calculator</h2>
+          
+            <hr>
+          
+            <form class="mt-4 needs-validation" id="ctc-calculator-form" novalidate>
+          
+              <div class="form-group mb-3">
+                <label for="ctc">Annual CTC (₹)</label>
+                <input type="number" id="ctc" class="form-control" placeholder="Enter Value Ex- (500000)" required>
+                <div class="invalid-feedback">
+                    The ctc is required
+                  </div>
+              </div>
+          
+              <div class="form-group mb-3">
+                <label for="total">Basic Salary (%)</label>
+                <input type="number" id="basic_salary"  class="form-control" placeholder="Enter Basic Salary Ex-200" required>
+                <div class="invalid-feedback">
+                    The basic salary is required
+                  </div>
+              </div>
+          
+              <div class="form-group mb-3">
+                <label for="total">PF Contribution (%)</label>
+                <input type="number" id="pf_contribution"  class="form-control" placeholder="Enter Pf Percentage ( Ex-12 )" required>
+                <div class="invalid-feedback">
+                    The Pf contribution is required
+                  </div>
+              </div>
+
+          
+              <button type="submit" class="btn btn-primary mt-2">
+                Calculate Percentage
+              </button>
+          
+            </form>
+          
+          </div>
+                
+       
+          <div class="mt-4" id="salary-result" style="display:none;">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="mb-3">Salary Breakdown</h5>
+          
+                <p><strong>Monthly In-Hand:</strong> ₹<span id="inhand"></span></p>
+                <p><strong>Annual In-Hand:</strong> ₹<span id="annual-inhand"></span></p>
+          
+                <hr>
+          
+                <p><strong>Basic Salary:</strong> ₹<span id="basic"></span></p>
+                <p><strong>PF Deduction:</strong> ₹<span id="pf"></span></p>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <nav class="blog-pagination">
+            <!-- <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#">Newer</a> -->
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+          <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">About</h4>
+            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">List Of Calculators</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="/emi-calculator">EMI Calculator</a></li>              
+              <li><a href="/gst-calculator">GST Calculator</a></li>
+              <li><a href="/percentage-calculator">Percentage Calculator</a></li>
+              <li><a href="/sip-calculator">SIP Calculator</a></li>
+              <li><a href="/cgpa-calculator">CGPA Calculator</a></li>
+              <li><a href="/age-calculator">Age Calculator</a></li>
+            </ol>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+
+<script>
+  document.getElementById('ctc-calculator-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const ctc = parseFloat(document.getElementById('ctc').value);
+    const basicPercent = parseFloat(document.getElementById('basic_salary').value);
+    const pfPercent = parseFloat(document.getElementById('pf_contribution').value);
+
+    // Annual calculations
+    const basicAnnual = (ctc * basicPercent) / 100;
+    const pfAnnual = (basicAnnual * pfPercent) / 100;
+
+    const inHandAnnual = ctc - pfAnnual;
+    const inHandMonthly = inHandAnnual / 12;
+
+    document.getElementById('basic').textContent = basicAnnual.toFixed(0);
+    document.getElementById('pf').textContent = pfAnnual.toFixed(0);
+    document.getElementById('annual-inhand').textContent = inHandAnnual.toFixed(0);
+    document.getElementById('inhand').textContent = inHandMonthly.toFixed(0);
+
+    document.getElementById('salary-result').style.display = 'block';
+  });
+</script>
+
+

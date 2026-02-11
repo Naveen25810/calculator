@@ -1,0 +1,158 @@
+
+    <main role="main" class="container">
+      <div class="row">       
+        <div class="col-md-8 blog-main">
+          <h3 class="pb-3 mb-4 font-italic border-bottom">
+            Age calculator
+          </h3>
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">Age Calculator</h2>
+          
+            <hr>
+          
+            <form class="mt-4 needs-validation" id="age-calculator-form" novalidate>
+          
+              <div class="form-group mb-3">
+                <label for="value">Date Of birth</label>
+                <input type="date" id="dob" class="form-control" required>
+                <div class="invalid-feedback">
+                    The date of birth is required
+                  </div>
+              </div>
+          
+              
+              
+          
+              <button type="submit" class="btn btn-primary mt-2">
+                Calculate Age
+              </button>
+          
+            </form>
+          
+          </div>
+                
+          <div class="mt-4" id="age-result" style="display:none;">
+            <div class="card shadow-sm border-0">
+              <div class="card-body text-center">
+                <h5 class="mb-3">Your Age</h5>
+                <p class="fs-5">
+                  <strong>
+                    <span id="years"></span> Years,
+                    <span id="months"></span> Months,
+                    <span id="days"></span> Days
+                  </strong>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <nav class="blog-pagination">
+            <!-- <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#">Newer</a> -->
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+          <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">About</h4>
+            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">List Of Calculators</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="/emi-calculator">EMI Calculator</a></li>              
+              <li><a href="/gst-calculator">GST Calculator</a></li>
+              <li><a href="/percentage-calculator">Percentage Calculator</a></li>
+              <li><a href="/sip-calculator">SIP Calculator</a></li>
+              <li><a href="/ctc-calculator">CTC Calculator</a></li>
+              <li><a href="/cgpa-calculator">CGPA Calculator</a></li>
+            </ol>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+<script>
+  document.getElementById('age-calculator-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const dob = new Date(document.getElementById('dob').value);
+    const today = new Date();
+
+    if(!document.getElementById('dob').value){
+      return
+    }
+    if (dob > today) {
+      alert('Date of birth cannot be in the future');
+      return;
+    }
+
+    let years = today.getFullYear() - dob.getFullYear();
+    let months = today.getMonth() - dob.getMonth();
+    let days = today.getDate() - dob.getDate();
+
+   
+    if (days < 0) {
+      months--;
+      days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    document.getElementById('years').textContent = years;
+    document.getElementById('months').textContent = months;
+    document.getElementById('days').textContent = days;
+
+    document.getElementById('age-result').style.display = 'block';
+  });
+</script>
+
+
+

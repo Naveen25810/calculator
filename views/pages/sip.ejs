@@ -1,0 +1,168 @@
+
+    <main role="main" class="container">
+      <div class="row">       
+        <div class="col-md-8 blog-main">
+          <h3 class="pb-3 mb-4 font-italic border-bottom">
+            SIP calculator
+          </h3>
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">SIP Calculator</h2>
+          
+            <hr>
+          
+            <form class="mt-4 needs-validation" id="sip-calculator-form" novalidate>
+          
+              <div class="form-group mb-3">
+                <label for="loan">Monthly Investment (₹)</label>
+                <input type="number" id="monthly_investment" class="form-control" placeholder="Enter Monthly Investment Amount Ex- (10000)" required>
+                <div class="invalid-feedback">
+                    The monthly investment is required
+                  </div>
+              </div>
+          
+              <div class="form-group mb-3">
+                <label for="rate">Expected Annual Return (%)</label>
+                <input type="number" id="annual_return" step="0.1" class="form-control" placeholder="Enter Annual Return Ex- (10%)" required>
+                <div class="invalid-feedback">
+                    The annula return is required
+                  </div>
+              </div>
+          
+              <div class="form-group mb-3">
+                <label for="tenure">Investment Duration (Years)</label>
+                <input type="number" id="tenure" class="form-control" placeholder="Enter Duration - Ex( 4 years)" required>
+                <div class="invalid-feedback">
+                    The duration is required
+                  </div>
+              </div>
+          
+              <button type="submit" class="btn btn-primary mt-2">
+                Calculate SIP
+              </button>
+          
+            </form>
+          
+          </div>
+          <div class="mt-4" id="emi-result" style="display:none;">
+            <h4>EMI Details</h4>
+            <p><strong>Monthly EMI:</strong> ₹<span id="emi"></span></p>
+            <p><strong>Total Interest:</strong> ₹<span id="total-interest"></span></p>
+            <p><strong>Total Payable:</strong> ₹<span id="total-payable"></span></p>
+          </div>
+
+          <div class="mt-4" id="sip-result" style="display:none;">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="mb-3">SIP Investment Summary</h5>
+          
+                <p><strong>Total Investment:</strong> ₹<span id="total-investment"></span></p>
+                <p><strong>Estimated Returns:</strong> ₹<span id="total-returns"></span></p>
+                <p class="fs-5 text-success">
+                  <strong>Future Value:</strong> ₹<span id="future-value"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <nav class="blog-pagination">
+            <!-- <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#">Newer</a> -->
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+          <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">About</h4>
+            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">List Of Calculators</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="/emi-calculator">EMI Calculator</a></li>              
+              <li><a href="/gst-calculator">GST Calculator</a></li>
+              <li><a href="/percentage-calculator">Percentage Calculator</a></li>
+              <li><a href="/ctc-calculator">CTC Calculator</a></li>
+              <li><a href="/cgpa-calculator">CGPA Calculator</a></li>
+              <li><a href="/age-calculator">Age Calculator</a></li>
+            </ol>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+
+<script>
+  document.getElementById('sip-calculator-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const P = parseFloat(document.getElementById('monthly_investment').value);
+    const annualRate = parseFloat(document.getElementById('annual_return').value);
+    const years = parseInt(document.getElementById('tenure').value);
+
+    const r = annualRate / 12 / 100;  // monthly rate
+    const n = years * 12;             // total months
+
+    // SIP Formula
+    const futureValue = P * ((Math.pow(1 + r, n) - 1) / r) * (1 + r);
+
+    const investedAmount = P * n;
+    const returns = futureValue - investedAmount;
+
+    document.getElementById('total-investment').textContent =
+      investedAmount.toFixed(0);
+
+    document.getElementById('total-returns').textContent =
+      returns.toFixed(0);
+
+    document.getElementById('future-value').textContent =
+      futureValue.toFixed(0);
+
+    document.getElementById('sip-result').style.display = 'block';
+  });
+</script>

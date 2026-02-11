@@ -1,0 +1,163 @@
+
+    <main role="main" class="container">
+      <div class="row">       
+        <div class="col-md-8 blog-main">
+          <h3 class="pb-3 mb-4 font-italic border-bottom">
+            GST calculator
+          </h3>
+
+          <div class="blog-post">
+            <h2 class="blog-post-title">GST Calculator</h2>
+          
+            <hr>
+          
+            <form class="mt-4 needs-validation" id="gst-calculator-form" novalidate>
+          
+              <div class="form-group mb-3">
+                <label for="loan">Original Amount (₹)</label>
+                <input type="number" id="amount" class="form-control" placeholder="Enter Amount Ex- (10000)" required>
+                <div class="invalid-feedback">
+                    The amount is required
+                  </div>
+              </div>
+          
+              <div class="form-group mb-3">
+                <label for="rate">GST Rate (%)</label>
+                <input type="number" id="gst_rate"  class="form-control" placeholder="Enter GST Rate Ex- (10%)" required>
+                <div class="invalid-feedback">
+                    The gst rate is required
+                  </div>
+              </div>
+          
+              <div class="form-group mb-3">
+                <label for="gst_type">Gst Type</label>
+                <select id="gst_type" class="form-control">
+                  <option value="exclusive">Add GST (Exclusive)</option>
+                  <option value="inclusive">Remove GST (Inclusive)</option>
+                </select>
+              </div>
+          
+              <button type="submit" class="btn btn-primary mt-2">
+                Calculate GST
+              </button>
+          
+            </form>
+          
+          </div>
+         
+
+          <div class="mt-4" id="gst-result" style="display:none;">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="mb-3">GST Calculation</h5>
+          
+                <p><strong>GST Amount:</strong> ₹<span id="gst-amount"></span></p>
+                <p><strong>Net Amount:</strong> ₹<span id="net-amount"></span></p>
+          
+                <p class="text-muted small mb-0">
+                  (CGST + SGST split equally)
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          
+          
+          
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <div class="blog-post">
+            
+          </div><!-- /.blog-post -->
+
+          <nav class="blog-pagination">
+            <!-- <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#">Newer</a> -->
+          </nav>
+
+        </div><!-- /.blog-main -->
+
+        <aside class="col-md-4 blog-sidebar">
+          <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">About</h4>
+            <p class="mb-0">Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">List Of Calculators</h4>
+            <ol class="list-unstyled mb-0">
+              <li><a href="/emi-calculator">EMI Calculator</a></li>              
+              <li><a href="/percentage-calculator">Percentage Calculator</a></li>
+              <li><a href="/sip-calculator">SIP Calculator</a></li>
+              <li><a href="/ctc-calculator">CTC Calculator</a></li>
+              <li><a href="/cgpa-calculator">CGPA Calculator</a></li>
+              <li><a href="/age-calculator">Age Calculator</a></li>
+            </ol>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="#">GitHub</a></li>
+              <li><a href="#">Twitter</a></li>
+              <li><a href="#">Facebook</a></li>
+            </ol>
+          </div>
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
+  </script>
+
+<script>
+  document.getElementById('gst-calculator-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const amount = parseFloat(document.getElementById('amount').value);
+    const rate = parseFloat(document.getElementById('gst_rate').value);
+    const type = document.getElementById('gst_type').value;
+
+    let gstAmount, netAmount;
+    if(!amount || !rate){
+      return
+    }
+    if (type === 'exclusive') {
+      gstAmount = (amount * rate) / 100;
+      netAmount = amount + gstAmount;
+    } else {
+      gstAmount = amount - (amount * 100) / (100 + rate);
+      netAmount = amount - gstAmount;
+    }
+
+    document.getElementById('gst-amount').textContent = gstAmount.toFixed(2);
+    document.getElementById('net-amount').textContent = netAmount.toFixed(2);
+
+    document.getElementById('gst-result').style.display = 'block';
+  });
+</script>
+
