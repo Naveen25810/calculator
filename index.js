@@ -44,4 +44,7 @@ app.get("/privacy-policy",(req,res)=>{
 app.get("/about_us",(req,res)=>{
     res.render('layouts/app', { page: 'pages/about_us' });
 })
+app.get("/g_verfication",(req,res)=>{
+    res.render('google0e4790a82b06ae7c');
+})
 
