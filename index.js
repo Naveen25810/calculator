@@ -44,7 +44,58 @@ app.get("/privacy-policy",(req,res)=>{
 app.get("/about_us",(req,res)=>{
     res.render('layouts/app', { page: 'pages/about_us' });
 })
-app.get("/g_verfication",(req,res)=>{
-    res.render('google0e4790a82b06ae7c');
-})
+
+
+app.get("/sitemap.xml",(req,res)=>{
+    res.header('Content-Type', 'application/xml');
+    res.send(`<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+      <url>
+        <loc>https://calculator-production-705d.up.railway.app/</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>1.0</priority>
+      </url>
+    
+      <url>
+        <loc>https://calculator-production-705d.up.railway.app/emi-calculator</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>0.9</priority>
+      </url>
+    
+     <url>
+        <loc>https://calculator-production-705d.up.railway.app/cgpa-calculator</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>0.9</priority>
+      </url>
+    
+       <url>
+        <loc>https://calculator-production-705d.up.railway.app/sip-calculator</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>0.9</priority>
+      </url>
+    
+    
+      <url>
+        <loc>https://calculator-production-705d.up.railway.app/gst-calculator</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>0.9</priority>
+      </url>
+    
+    
+      <url>
+        <loc>https://calculator-production-705d.up.railway.app/age-calculator</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>0.8</priority>
+      </url>
+    
+      <url>
+        <loc>https://calculator-production-705d.up.railway.app/percentage-calculator</loc>
+        <lastmod>2026-02-12</lastmod>
+        <priority>0.8</priority>
+      </url>
+    
+    </urlset>
+    `);
+});
 
